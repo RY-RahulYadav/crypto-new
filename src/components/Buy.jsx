@@ -103,8 +103,8 @@ const Buy = () => {
         {/* Footer */}
         <footer className="w-full pt-8">
           <div className="flex w-full flex-col gap-3">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-5 flex-1 bg-primary text-white text-lg font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
-              <span className="truncate">Buy BTC</span>
+            <button className="w-full rounded-full bg-primary py-4 font-bold text-white hover:opacity-90 transition-opacity">
+              Buy BTC
             </button>
           </div>
         </footer>
