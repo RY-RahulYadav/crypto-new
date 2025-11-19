@@ -1,0 +1,26 @@
+body {
+  min-height: max(884px, 100dvh);
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile-only: Hide on larger screens */
+@media (min-width: 768px) {
+  body::before {
+    content: "This app is designed for mobile devices only. Please view on a mobile device or resize your browser window.";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0D1117;
+    color: #F0F6FC;
+    font-family: 'Manrope', sans-serif;
+    text-align: center;
+    padding: 2rem;
+    z-index: 9999;
+  }
+}
