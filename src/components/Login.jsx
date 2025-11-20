@@ -6,7 +6,6 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
-    dob: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -36,23 +35,6 @@ const Login = () => {
         newErrors.name = 'Name is required';
       } else if (formData.name.length < 2) {
         newErrors.name = 'Name must be at least 2 characters';
-      }
-
-      if (!formData.dob) {
-        newErrors.dob = 'Date of birth is required';
-      } else {
-        const dobDate = new Date(formData.dob);
-        const today = new Date();
-        const age = today.getFullYear() - dobDate.getFullYear();
-        const monthDiff = today.getMonth() - dobDate.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
-          const actualAge = age - 1;
-          if (actualAge < 18) {
-            newErrors.dob = 'You must be at least 18 years old';
-          }
-        } else if (age < 18) {
-          newErrors.dob = 'You must be at least 18 years old';
-        }
       }
     }
 
@@ -172,29 +154,6 @@ const Login = () => {
             </div>
           )}
 
-          {/* Date of Birth Input (only for register) */}
-          {!isLogin && (
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="dob">
-                Date of Birth
-              </label>
-              <input
-                className={`w-full rounded-lg border ${
-                  errors.dob ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
-                } bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary`}
-                id="dob"
-                name="dob"
-                type="date"
-                value={formData.dob}
-                onChange={handleInputChange}
-                max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}
-              />
-              {errors.dob && (
-                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.dob}</p>
-              )}
-            </div>
-          )}
-
           {/* Email Input */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="email">
@@ -288,7 +247,7 @@ const Login = () => {
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
-                setFormData({ name: '', dob: '', email: '', password: '', confirmPassword: '' });
+                setFormData({ name: '', email: '', password: '', confirmPassword: '' });
                 setErrors({});
               }}
               className="font-semibold text-primary hover:opacity-80 transition-opacity"
