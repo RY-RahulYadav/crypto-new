@@ -4,7 +4,7 @@ const Onboarding = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/home');
+    navigate('/login');
   };
 
   const handleImportWallet = () => {

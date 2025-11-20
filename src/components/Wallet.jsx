@@ -21,10 +21,16 @@ const Wallet = () => {
           </button>
           <h1 className="text-3xl font-bold text-text-primary-dark">Wallets</h1>
           <div className="flex items-center gap-2">
-            <button className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark">
+            <button
+              onClick={() => navigate('/receive')}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark"
+            >
               <span className="material-symbols-outlined text-2xl">qr_code_scanner</span>
             </button>
-            <button className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark">
+            <button
+              onClick={() => navigate('/create-wallet')}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark"
+            >
               <span className="material-symbols-outlined text-2xl">add</span>
             </button>
           </div>
@@ -33,7 +39,23 @@ const Wallet = () => {
         {/* Main Content */}
         <main className="flex flex-1 flex-col space-y-4">
           {/* BTC Wallet 1 */}
-          <div className="rounded-lg bg-surface-dark p-4">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/wallet-detail', {
+                state: {
+                  wallet: {
+                    name: 'BTC Wallet 1',
+                    balance: '0.0015 BTC',
+                    totalValue: '$100.00',
+                    icon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBc9yd41o5h-jCdr4Gtg2bkdAiPj7MFCqhijksCwwfA77oxvCAUYuCVjEwKqNlow5653nNr-EEbj9n0Kr5_aBgeFYwkg_Y6jqQS6cZNKpkw4OZOQ2R-GUb4svhyX1fbsicfVWvVr54M__QSFIr3qbl8hRl3k1RI0dXZIp0uwViYxff_oqPjsxjO0LbCmumG-NHq5H72QjELwZv5JYfWIwz1BP4I9aoiK7E2t9sYBIeKYv5BUfXjCahe6fy6ATGYV8Lu_KBtWrbXa8g'
+                  }
+                }
+              });
+            }}
+            className="rounded-lg bg-surface-dark p-4 text-left w-full hover:opacity-90 transition-opacity cursor-pointer"
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
@@ -49,10 +71,26 @@ const Wallet = () => {
               </div>
               <span className="font-bold text-text-primary-dark">$100.00</span>
             </div>
-          </div>
+          </button>
 
           {/* ETH Wallet */}
-          <div className="rounded-lg bg-surface-dark p-4">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/wallet-detail', {
+                state: {
+                  wallet: {
+                    name: 'ETH Wallet',
+                    balance: '0.25 ETH',
+                    totalValue: '$850.75',
+                    icon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBqIgOsQqFcSZLGRW0GvcfFYHMciJUVHsEZh85qrvkxc9DaW2HhtwwC2CC7wc0LsvJvDInQhChX_rBz3WXBIKmGhaqAfK5cgj7ntaVtHWzFIyUMnLmNsMTV1JxNE-s7vShKKBkBynEugkB_1ZxB_GAD8VrXSb9NVBvBMwdEIsat0UcpICUs-u0Hda30q0j07Nghkbp5sUlianBAUIv_FQ9zfXzqkHSH6YmQCA0RrM7dZq8ZY5YhhAZdeCKvM0CJrP87UZLADR0SKzE'
+                  }
+                }
+              });
+            }}
+            className="rounded-lg bg-surface-dark p-4 text-left w-full hover:opacity-90 transition-opacity cursor-pointer"
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
@@ -68,10 +106,13 @@ const Wallet = () => {
               </div>
               <span className="font-bold text-text-primary-dark">$850.75</span>
             </div>
-          </div>
+          </button>
 
           {/* Add New Wallet */}
-          <div className="rounded-lg border-2 border-dashed border-border-dark p-4 text-center">
+          <button
+            onClick={() => navigate('/create-wallet')}
+            className="rounded-lg border-2 border-dashed border-border-dark p-4 text-center hover:opacity-90 transition-opacity cursor-pointer"
+          >
             <div className="flex flex-col items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-dark text-primary">
                 <span className="material-symbols-outlined text-3xl">add</span>
@@ -81,7 +122,7 @@ const Wallet = () => {
                 <p className="text-sm text-text-secondary-dark">Create or import a new wallet</p>
               </div>
             </div>
-          </div>
+          </button>
         </main>
 
       </div>

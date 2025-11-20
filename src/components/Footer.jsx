@@ -16,16 +16,16 @@ const Footer = () => {
           <span className="text-xs font-medium">Home</span>
         </Link>
         <Link
-          to="/home"
+          to="/market"
           className={`inline-flex flex-col items-center justify-center px-5 cursor-pointer ${
-            location.pathname === '/home' ? 'text-primary' : 'text-text-dim hover:text-text-light'
+            location.pathname === '/market' ? 'text-primary' : 'text-text-dim hover:text-text-light'
           }`}
         >
           <span className="material-symbols-outlined">bar_chart</span>
           <span className="text-xs font-medium">Markets</span>
         </Link>
         <Link
-          to="/home"
+          to="/select-asset-swap"
           className="inline-flex flex-col items-center justify-center px-5 text-text-dim hover:text-text-light cursor-pointer"
         >
           <div className="relative -mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/30">

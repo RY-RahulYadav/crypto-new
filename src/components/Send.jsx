@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
 const Send = () => {
   const navigate = useNavigate();
+  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+  const [selectedWallet, setSelectedWallet] = useState({
+    name: 'Main Wallet',
+    balance: '1.25 ETH'
+  });
 
   const handleBack = () => {
     navigate(-1);
   };
+
+  const handleWalletSelect = (wallet) => {
+    setSelectedWallet(wallet);
+    setIsWalletModalOpen(false);
+  };
+
+  const wallets = [
+    { name: 'Main Wallet', balance: '1.25 ETH', icon: 'account_balance_wallet' },
+    { name: 'Savings', balance: '0.0567 ETH', icon: 'savings' },
+    { name: 'Trading', balance: '1,234.56 USDC', icon: 'travel' }
+  ];
 
   return (
     <div className="bg-background-light dark:bg-background-dark font-display text-text-primary-dark relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -28,19 +45,20 @@ const Send = () => {
           {/* From Wallet Section */}
           <div className="mb-6 rounded-lg bg-surface-dark p-4">
             <span className="text-sm font-medium text-text-secondary-dark">From</span>
-            <div className="mt-2 flex items-center justify-between">
+            <div
+              onClick={() => setIsWalletModalOpen(true)}
+              className="mt-2 flex cursor-pointer items-center justify-between"
+            >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/20">
                   <span className="material-symbols-outlined text-blue-400">account_balance_wallet</span>
                 </div>
                 <div>
-                  <p className="font-semibold">Main Wallet</p>
-                  <p className="text-sm text-text-secondary-dark">Balance: 1.25 ETH</p>
+                  <p className="font-semibold">{selectedWallet.name}</p>
+                  <p className="text-sm text-text-secondary-dark">Balance: {selectedWallet.balance}</p>
                 </div>
               </div>
-              <button>
-                <span className="material-symbols-outlined text-text-secondary-dark">expand_more</span>
-              </button>
+              <span className="material-symbols-outlined text-text-secondary-dark">expand_more</span>
             </div>
           </div>
 
@@ -62,21 +80,17 @@ const Send = () => {
             </div>
           </div>
 
-          {/* Quick Actions */}
-          <div className="mb-6 flex items-center justify-start gap-6 px-1">
-            <a className="flex items-center gap-2 text-sm font-semibold text-primary transition-opacity hover:opacity-80" href="#">
-              <span className="material-symbols-outlined text-lg">link</span>
-              Create Link
-            </a>
-            <a className="flex items-center gap-2 text-sm font-semibold text-primary transition-opacity hover:opacity-80" href="#">
-              <span className="material-symbols-outlined text-lg">person_add</span>
-              Import
-            </a>
-          </div>
-
           {/* Saved Addresses */}
           <div>
-            <h2 className="mb-3 text-base font-semibold text-text-secondary-dark">Saved Addresses</h2>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-semibold text-text-secondary-dark">Saved Addresses</h2>
+              <button
+                onClick={() => navigate('/add-address')}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              >
+                <span className="material-symbols-outlined text-xl">add</span>
+              </button>
+            </div>
             <div className="space-y-3">
               {/* Alex's Address */}
               <div className="flex items-center justify-between rounded-lg bg-surface-dark p-3 transition-colors hover:bg-border-dark cursor-pointer">
@@ -158,6 +172,71 @@ const Send = () => {
             <span className="truncate">Confirm</span>
           </button>
         </footer>
+
+        {/* Wallet Selection Modal */}
+        {isWalletModalOpen && (
+          <div
+            className="fixed inset-0 z-[60] flex flex-col justify-end bg-black/50"
+            onClick={() => setIsWalletModalOpen(false)}
+          >
+            <div
+              className="flex flex-col rounded-t-xl bg-slate-100 dark:bg-slate-900 max-h-[80vh] flex-shrink-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 pb-2 flex-shrink-0">
+                <div className="flex size-10 items-center justify-center"></div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Select a Wallet</h3>
+                <button
+                  onClick={() => setIsWalletModalOpen(false)}
+                  className="flex size-10 items-center justify-center text-slate-500 dark:text-gray-400"
+                >
+                  <span className="material-symbols-outlined text-2xl">close</span>
+                </button>
+              </div>
+
+              {/* Scrollable wallet list */}
+              <div className="flex flex-col gap-3 p-4 overflow-y-auto flex-1 min-h-0">
+                {wallets.map((wallet, index) => (
+                  <label
+                    key={index}
+                    className={`flex cursor-pointer items-center gap-4 rounded-lg border border-solid p-4 has-[:checked]:border-primary has-[:checked]:bg-primary/10 border-slate-300 dark:border-slate-700 flex-shrink-0 ${
+                      selectedWallet.name === wallet.name ? 'border-primary bg-primary/10' : ''
+                    }`}
+                  >
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-slate-300 dark:bg-slate-700 text-slate-600 dark:text-primary">
+                      <span className="material-symbols-outlined text-2xl">{wallet.icon}</span>
+                    </div>
+                    <div className="flex grow flex-col">
+                      <p className="text-base font-medium leading-normal text-slate-900 dark:text-white">
+                        {wallet.name}
+                      </p>
+                      <p className="text-sm font-normal leading-normal text-slate-500 dark:text-gray-400">
+                        {wallet.balance}
+                      </p>
+                    </div>
+                    <input
+                      className="form-radio radio-custom ml-auto h-5 w-5 cursor-pointer border-2 bg-transparent text-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 border-slate-300 dark:border-slate-700 checked:border-primary"
+                      name="wallet-send"
+                      type="radio"
+                      checked={selectedWallet.name === wallet.name}
+                      onChange={() => handleWalletSelect(wallet)}
+                    />
+                  </label>
+                ))}
+              </div>
+
+              {/* Fixed button at bottom */}
+              <div className="p-4 pt-2 pb-6 flex-shrink-0 border-t border-slate-200 dark:border-slate-800">
+                <button
+                  onClick={() => setIsWalletModalOpen(false)}
+                  className="flex h-12 min-w-[84px] max-w-[480px] w-full flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-5 text-base font-bold leading-normal tracking-[0.015em] text-white hover:opacity-90 transition-opacity"
+                >
+                  <span className="truncate">Select Wallet</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Bottom Navigation */}
         <Footer />

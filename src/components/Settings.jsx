@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 
 const Settings = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-background-light dark:bg-background-dark relative flex h-screen w-full flex-col font-display dark:bg-background-dark group/design-root overflow-hidden" style={{ fontFamily: 'Manrope, "Noto Sans", sans-serif' }}>
       <main className="flex-1 overflow-y-auto px-6 pt-12 pb-28">
@@ -10,64 +13,70 @@ const Settings = () => {
           <h1 className="text-3xl font-bold tracking-tight text-text-light">Settings</h1>
         </header>
 
-        {/* General Section */}
+        {/* Profile Section */}
         <section className="mb-8">
           <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary-dark mb-3">
-            General
+            Profile
           </h2>
           <div className="rounded-lg bg-card-dark overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b border-border-dark">
+            <button
+              onClick={() => navigate('/profile')}
+              className="flex w-full items-center justify-between p-4 border-b border-border-dark hover:bg-background-dark/50"
+            >
               <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">dark_mode</span>
-                <span className="font-semibold text-text-light">Dark Mode</span>
+                <span className="material-symbols-outlined text-primary">person</span>
+                <span className="font-semibold text-text-light">Profile</span>
               </div>
-              <button
-                aria-checked="true"
-                className="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
-                role="switch"
-              >
-                <span className="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
-              </button>
-            </div>
+              <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
+            </button>
+            <button
+              onClick={() => navigate('/reset-password')}
+              className="flex w-full items-center justify-between p-4 hover:bg-background-dark/50"
+            >
+              <div className="flex items-center gap-4">
+                <span className="material-symbols-outlined text-primary">lock_reset</span>
+                <span className="font-semibold text-text-light">Password Reset</span>
+              </div>
+              <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
+            </button>
           </div>
         </section>
 
-        {/* Security Section */}
+        {/* Wallet Section */}
         <section className="mb-8">
           <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary-dark mb-3">
-            Security
+            Wallet
           </h2>
           <div className="rounded-lg bg-card-dark overflow-hidden">
-            <a
-              className="flex items-center justify-between p-4 border-b border-border-dark hover:bg-background-dark/50"
-              href="#"
+            <button
+              onClick={() => navigate('/wallet')}
+              className="flex w-full items-center justify-between p-4 hover:bg-background-dark/50"
             >
               <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">shield</span>
-                <span className="font-semibold text-text-light">Security Overview</span>
+                <span className="material-symbols-outlined text-primary">account_balance_wallet</span>
+                <span className="font-semibold text-text-light">My Wallet</span>
               </div>
               <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
-            </a>
-            <a
-              className="flex items-center justify-between p-4 border-b border-border-dark hover:bg-background-dark/50"
-              href="#"
+            </button>
+          </div>
+        </section>
+
+        {/* Addresses Section */}
+        <section className="mb-8">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary-dark mb-3">
+            Addresses
+          </h2>
+          <div className="rounded-lg bg-card-dark overflow-hidden">
+            <button
+              onClick={() => navigate('/saved-addresses')}
+              className="flex w-full items-center justify-between p-4 hover:bg-background-dark/50"
             >
               <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">backup</span>
-                <span className="font-semibold text-text-light">Backup Seed Phrase</span>
+                <span className="material-symbols-outlined text-primary">bookmark</span>
+                <span className="font-semibold text-text-light">Saved Addresses</span>
               </div>
               <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
-            </a>
-            <a
-              className="flex items-center justify-between p-4 hover:bg-background-dark/50"
-              href="#"
-            >
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">restore</span>
-                <span className="font-semibold text-text-light">Restore Seed Phrase</span>
-              </div>
-              <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
-            </a>
+            </button>
           </div>
         </section>
 
