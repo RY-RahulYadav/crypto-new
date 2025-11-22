@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import Footer from './Footer';
 
 const CryptoDetail = () => {
@@ -8,7 +9,9 @@ const CryptoDetail = () => {
   const coin = location.state?.coin || null;
   const [coinData, setCoinData] = useState(coin);
   const [loading, setLoading] = useState(!coin);
-  const [timeRange, setTimeRange] = useState('24h'); // 24h, 7d, 30d, 1y
+  const [timeRange, setTimeRange] = useState('7d'); // 24h, 7d, 30d, 1y
+  const [chartData, setChartData] = useState([]);
+  const [chartLoading, setChartLoading] = useState(true);
 
   useEffect(() => {
     if (coin && coin.id && !coinData) {
@@ -30,6 +33,44 @@ const CryptoDetail = () => {
       setLoading(false);
     }
   }, [coin]);
+
+  // Fetch chart data
+  useEffect(() => {
+    if (!coinData?.id) return;
+
+    const timeRangeMap = {
+      '24h': 1,
+      '7d': 7,
+      '30d': 30,
+      '1y': 365,
+    };
+
+    const days = timeRangeMap[timeRange] || 7;
+    setChartLoading(true);
+
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/${coinData.id}/market_chart?vs_currency=usd&days=${days}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        // Transform the API data into chart format
+        const formattedData = data.prices.map(([timestamp, price]) => ({
+          time: new Date(timestamp).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            ...(days > 30 && { year: 'numeric' }),
+          }),
+          price: price,
+          timestamp: timestamp,
+        }));
+        setChartData(formattedData);
+        setChartLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching chart data:', error);
+        setChartLoading(false);
+      });
+  }, [coinData?.id, timeRange]);
 
   const handleBack = () => {
     navigate(-1);
@@ -158,6 +199,65 @@ const CryptoDetail = () => {
           ))}
         </div>
 
+        {/* Price Chart */}
+        <div className="rounded-lg bg-gray-100 dark:bg-gray-800/50 p-4 mb-6">
+          {chartLoading ? (
+            <div className="flex items-center justify-center h-48">
+              <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+            </div>
+          ) : chartData.length > 0 ? (
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData}>
+                  <defs>
+                    <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={isPositive ? '#10b981' : '#ef4444'} stopOpacity={0.3} />
+                      <stop offset="95%" stopColor={isPositive ? '#10b981' : '#ef4444'} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis
+                    dataKey="time"
+                    tick={{ fill: '#6b7280', fontSize: 10 }}
+                    axisLine={false}
+                    tickLine={false}
+                    interval="preserveStartEnd"
+                  />
+                  <YAxis
+                    domain={['auto', 'auto']}
+                    tick={{ fill: '#6b7280', fontSize: 10 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(value) => `$${value.toFixed(2)}`}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                      border: 'none',
+                      borderRadius: '8px',
+                      color: '#fff',
+                    }}
+                    labelStyle={{ color: '#fff' }}
+                    formatter={(value) => [`$${value.toFixed(2)}`, 'Price']}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="price"
+                    stroke={isPositive ? '#10b981' : '#ef4444'}
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 4 }}
+                    fill="url(#priceGradient)"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-48">
+              <p className="text-sm text-gray-500 dark:text-gray-400">No chart data available</p>
+            </div>
+          )}
+        </div>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="rounded-lg bg-gray-100 dark:bg-gray-800/50 p-4">
@@ -187,19 +287,6 @@ const CryptoDetail = () => {
                 ? `${(coinData.total_supply / 1e6).toFixed(2)}M ${coinData.symbol?.toUpperCase() || ''}`
                 : 'N/A'}
             </p>
-          </div>
-        </div>
-
-        {/* Price Chart Placeholder */}
-        <div className="rounded-lg bg-gray-100 dark:bg-gray-800/50 p-6 mb-6">
-          <div className="flex items-center justify-center h-48">
-            <div className="text-center">
-              <span className="material-symbols-outlined text-6xl text-gray-400 dark:text-gray-600 mb-2">
-                show_chart
-              </span>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Price Chart</p>
-              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{timeRange} view</p>
-            </div>
           </div>
         </div>
 
@@ -238,4 +325,3 @@ const CryptoDetail = () => {
 };
 
 export default CryptoDetail;
-
