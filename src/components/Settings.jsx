@@ -80,6 +80,25 @@ const Settings = () => {
           </div>
         </section>
 
+        {/* Logout Section */}
+        <section className="mb-8">
+          <div className="rounded-lg bg-card-dark overflow-hidden">
+            <button
+              onClick={() => {
+                // Handle logout logic here
+                navigate('/login');
+              }}
+              className="flex w-full items-center justify-between p-4 hover:bg-background-dark/50"
+            >
+              <div className="flex items-center gap-4">
+                <span className="material-symbols-outlined text-red-500">logout</span>
+                <span className="font-semibold text-red-500">Logout</span>
+              </div>
+              <span className="material-symbols-outlined text-text-secondary-dark">chevron_right</span>
+            </button>
+          </div>
+        </section>
+
         {/* About Section */}
         <section>
           <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary-dark mb-3">

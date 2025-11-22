@@ -67,9 +67,9 @@ const SelectAssetSwap = () => {
         >
           <span className="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
-        <h2 className="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-slate-900 dark:text-white">
-          Select Assets to Swap
-        </h2>
+        <div className="flex-1 flex justify-center">
+          <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
+        </div>
         <div className="flex size-10 shrink-0 items-center justify-center"></div>
       </div>
 

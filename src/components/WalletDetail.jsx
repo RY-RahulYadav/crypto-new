@@ -147,7 +147,9 @@ const WalletDetail = () => {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
           </button>
-          <h1 className="text-3xl font-bold text-text-primary-dark">{wallet.name}</h1>
+          <div className="flex-1 flex justify-center">
+            <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
+          </div>
           <div className="h-10 w-10"></div>
         </header>
 

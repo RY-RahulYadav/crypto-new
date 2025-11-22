@@ -7,22 +7,12 @@ const Onboarding = () => {
     navigate('/login');
   };
 
-  const handleImportWallet = () => {
-    // Handle import wallet action
-    console.log('Import Wallet clicked');
-  };
-
   return (
     <div className="relative flex h-screen w-full flex-col font-display dark:bg-background-dark group/design-root overflow-hidden" style={{ fontFamily: 'Manrope, "Noto Sans", sans-serif' }}>
       <div className="flex h-full w-full flex-col justify-between p-4 overflow-hidden">
         {/* Logo */}
-        <header className="flex w-full justify-center pt-2 pb-2 flex-shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary text-2xl" data-icon="shield">
-              security
-            </span>
-            <span className="text-lg font-bold tracking-tight text-[#F0F6FC]">Open World Accounts</span>
-          </div>
+        <header className="flex w-full justify-center pt-4 pb-4 flex-shrink-0">
+          <img src="/logo.png" alt="Open World Accounts" className="h-24 w-auto" />
         </header>
 
         {/* Main Content */}
@@ -64,16 +54,6 @@ const Onboarding = () => {
               <span className="truncate">Get Started</span>
             </button>
           </div>
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              handleImportWallet();
-            }}
-            className="block text-center text-sm font-semibold text-[#8B949E] hover:text-[#F0F6FC] transition-colors py-1 cursor-pointer"
-            href="#"
-          >
-            Import Existing Wallet
-          </a>
         </footer>
       </div>
     </div>

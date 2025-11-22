@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Onboarding from './components/Onboarding';
 import Login from './components/Login';
+import Register from './components/Register';
 import OTP from './components/OTP';
 import Home from './components/Home';
 import Wallet from './components/Wallet';
@@ -14,6 +15,7 @@ import AddAddress from './components/AddAddress';
 import SavedAddresses from './components/SavedAddresses';
 import Profile from './components/Profile';
 import ResetPassword from './components/ResetPassword';
+import ForgotPassword from './components/ForgotPassword';
 import CreateWallet from './components/CreateWallet';
 import Buy from './components/Buy';
 import Sell from './components/Sell';
@@ -31,6 +33,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/otp" element={<OTP />} />
           <Route path="/home" element={<Home />} />
           <Route path="/wallet" element={<Wallet />} />

@@ -3,12 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
   const [errors, setErrors] = useState({});
 
@@ -29,15 +26,6 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!isLogin) {
-      if (!formData.name) {
-        newErrors.name = 'Name is required';
-      } else if (formData.name.length < 2) {
-        newErrors.name = 'Name must be at least 2 characters';
-      }
-    }
-
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -50,14 +38,6 @@ const Login = () => {
       newErrors.password = 'Password must be at least 6 characters';
     }
 
-    if (!isLogin) {
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = 'Please confirm your password';
-      } else if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -65,13 +45,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      if (isLogin) {
-        // For login, go directly to home
-        navigate('/home');
-      } else {
-        // For register, navigate to OTP screen for email verification
-        navigate('/otp', { state: { email: formData.email, isLogin } });
-      }
+      // For login, go directly to home
+      navigate('/home');
     }
   };
 
@@ -83,179 +58,133 @@ const Login = () => {
 
   return (
     <div className="bg-background-light dark:bg-background-dark font-display relative mx-auto flex h-screen max-w-md flex-col overflow-hidden">
-      {/* Centered Content */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 pb-6">
-        <div className="w-full max-w-sm">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto px-6 pt-20 pb-6">
+        <div className="w-full max-w-sm mx-auto">
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <img src="/logo.png" alt="Open World Accounts" className="h-24 w-auto" />
+          </div>
+
           {/* Title Section */}
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {isLogin ? 'Welcome Back' : 'Create Account'}
+              Welcome Back
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {isLogin ? 'Sign in to continue' : 'Sign up to get started'}
+              Sign in to continue
             </p>
           </div>
 
-        {/* Google Login Button */}
-        <button
-          onClick={handleGoogleLogin}
-          className="flex w-full items-center justify-center gap-3 rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 h-14 text-base font-semibold text-gray-900 dark:text-white hover:opacity-90 transition-opacity mb-4"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24">
-            <path
-              fill="#4285F4"
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-            />
-            <path
-              fill="#34A853"
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-            />
-            <path
-              fill="#EA4335"
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-            />
-          </svg>
-          <span>Continue with Google</span>
-        </button>
+          {/* Google Login Button */}
+          <button
+            onClick={handleGoogleLogin}
+            className="flex w-full items-center justify-center gap-3 rounded-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 h-14 text-base font-semibold text-gray-900 dark:text-white hover:opacity-90 transition-opacity mb-4"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+            <span>Continue with Google</span>
+          </button>
 
-        {/* Divider */}
-        <div className="flex items-center gap-4 my-6">
-          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">OR</span>
-          <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
-        </div>
+          {/* Divider */}
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">OR</span>
+            <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
+          </div>
 
-        {/* Email Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Input (only for register) */}
-          {!isLogin && (
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email Input */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="name">
-                Full Name
+              <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="email">
+                Email
               </label>
               <input
                 className={`w-full rounded-lg border ${
-                  errors.name ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
+                  errors.email ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
                 } bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary`}
-                id="name"
-                name="name"
-                placeholder="Enter your full name"
-                type="text"
-                value={formData.name}
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                type="email"
+                value={formData.email}
                 onChange={handleInputChange}
               />
-              {errors.name && (
-                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.name}</p>
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.email}</p>
               )}
             </div>
-          )}
 
-          {/* Email Input */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="email">
-              Email
-            </label>
-            <input
-              className={`w-full rounded-lg border ${
-                errors.email ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
-              } bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary`}
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            {errors.email && (
-              <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.email}</p>
-            )}
-          </div>
-
-          {/* Password Input */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="password">
-              Password
-            </label>
-            <input
-              className={`w-full rounded-lg border ${
-                errors.password ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
-              } bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary`}
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              type="password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-            {errors.password && (
-              <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.password}</p>
-            )}
-          </div>
-
-          {/* Confirm Password (only for register) */}
-          {!isLogin && (
+            {/* Password Input */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="confirmPassword">
-                Confirm Password
+              <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="password">
+                Password
               </label>
               <input
                 className={`w-full rounded-lg border ${
-                  errors.confirmPassword ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
+                  errors.password ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-700'
                 } bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary`}
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm your password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
                 type="password"
-                value={formData.confirmPassword}
+                value={formData.password}
                 onChange={handleInputChange}
               />
-              {errors.confirmPassword && (
-                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.confirmPassword}</p>
+              {errors.password && (
+                <p className="mt-1 text-xs text-red-500 dark:text-red-400">{errors.password}</p>
               )}
             </div>
-          )}
 
-          {/* Forgot Password (only for login) */}
-          {isLogin && (
+            {/* Forgot Password */}
             <div className="text-right">
               <button
                 type="button"
+                onClick={() => navigate('/forgot-password')}
                 className="text-sm font-semibold text-primary hover:opacity-80 transition-opacity"
               >
                 Forgot Password?
               </button>
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="flex h-14 w-full cursor-pointer items-center justify-center rounded-full bg-primary text-lg font-bold text-white hover:opacity-90 transition-opacity mt-6"
-          >
-            {isLogin ? 'Sign In' : 'Sign Up'}
-          </button>
-        </form>
-
-        {/* Toggle Login/Register */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {isLogin ? "Don't have an account? " : 'Already have an account? '}
+            {/* Submit Button */}
             <button
-              onClick={() => {
-                setIsLogin(!isLogin);
-                setFormData({ name: '', email: '', password: '', confirmPassword: '' });
-                setErrors({});
-              }}
-              className="font-semibold text-primary hover:opacity-80 transition-opacity"
+              type="submit"
+              className="flex h-14 w-full cursor-pointer items-center justify-center rounded-full bg-primary text-lg font-bold text-white hover:opacity-90 transition-opacity mt-6"
             >
-              {isLogin ? 'Sign Up' : 'Sign In'}
+              Sign In
             </button>
-          </p>
-        </div>
+          </form>
+
+          {/* Link to Register */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Don't have an account?{' '}
+              <button
+                onClick={() => navigate('/register')}
+                className="font-semibold text-primary hover:opacity-80 transition-opacity"
+              >
+                Sign Up
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>

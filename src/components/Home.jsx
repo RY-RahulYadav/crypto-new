@@ -41,13 +41,7 @@ const Home = () => {
         {/* Header */}
         <header className="flex w-full items-center justify-between px-6 pt-8 pb-4">
           <div className="flex items-center gap-3">
-            <div 
-              className="h-10 w-10 rounded-full bg-center bg-no-repeat bg-cover" 
-              data-alt="User avatar" 
-              style={{
-                backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuD3-JCNBUU8OFaD-716aKn95cO9G--inuVFXwA73iMCncq9n4MZrXsZKtmlfNsFVnsB8uCHSm-qwBiVqHIOQmlL_J5mN-oUz0KT2rdmhzm2Iv_hV9XvXmSA6SJ3SjFSZsE5mbRUiivnzL4FiGSC11wHaCKykFYg1gE8IrB9_d4KVdDwDqX_GAGpy1rO6W_a5s07gWWfe4dxj02HVVIesJ6V0sUyAWeYdWvuAlvnfzUcAo3_DgXaXILqxaqR-XxEhKeocOwTMSoGlyI")'
-              }}
-            ></div>
+            <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
             <div>
               <p className="text-sm font-medium text-text-dim">My Portfolio</p>
               <h1 className="text-2xl font-bold tracking-tight text-text-light">Hi, Alex</h1>
@@ -203,7 +197,7 @@ const Home = () => {
           {/* Market Section */}
           <section>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-text-light">Market</h3>
+            <h3 className="text-lg font-bold text-text-light">Market</h3>
               <button
                 onClick={() => navigate('/market')}
                 className="text-sm font-semibold text-primary hover:opacity-80 transition-opacity"
@@ -216,25 +210,25 @@ const Home = () => {
                 <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
               </div>
             ) : (
-              <div className="mt-4 flex flex-col gap-4">
+            <div className="mt-4 flex flex-col gap-4">
                 {topCoins.map((coin) => (
                   <div
                     key={coin.id}
                     onClick={() => navigate('/crypto-detail', { state: { coin } })}
                     className="flex items-center justify-between gap-4 cursor-pointer hover:opacity-90 transition-opacity"
                   >
-                    <div className="flex items-center gap-3">
-                      <img 
+                <div className="flex items-center gap-3">
+                  <img 
                         alt={`${coin.name} logo`} 
                         className="h-10 w-10 rounded-full" 
                         src={coin.image}
-                      />
-                      <div>
+                  />
+                  <div>
                         <p className="font-bold text-text-light">{coin.symbol.toUpperCase()}</p>
                         <p className="text-sm text-text-dim">{coin.name}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
+                  </div>
+                </div>
+                <div className="text-right">
                       <p className="font-bold text-text-light">${formatPrice(coin.current_price)}</p>
                       <p className={`text-sm font-medium ${
                         coin.price_change_percentage_24h >= 0 ? 'text-success' : 'text-danger'
@@ -242,7 +236,7 @@ const Home = () => {
                         {coin.price_change_percentage_24h >= 0 ? '+' : ''}
                         {coin.price_change_percentage_24h?.toFixed(2)}%
                       </p>
-                    </div>
+              </div>
                   </div>
                 ))}
               </div>

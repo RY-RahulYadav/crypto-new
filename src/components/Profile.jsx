@@ -8,6 +8,7 @@ const Profile = () => {
     name: 'Alex',
     email: 'alex@example.com',
     phone: '+1 234 567 8900',
+    dob: '1990-01-15',
     country: 'United States'
   });
 
@@ -37,7 +38,9 @@ const Profile = () => {
         >
           <span className="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
-        <h1 className="flex-1 text-center text-xl font-bold text-gray-900 dark:text-white">Profile</h1>
+        <div className="flex-1 flex justify-center">
+          <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
+        </div>
         <div className="h-10 w-10"></div>
       </div>
 
@@ -104,6 +107,21 @@ const Profile = () => {
               placeholder="Enter your phone number"
               type="tel"
               value={formData.phone}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          {/* Date of Birth Input */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-500 dark:text-gray-400" htmlFor="dob">
+              Date of Birth
+            </label>
+            <input
+              className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/50 px-4 py-3 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary"
+              id="dob"
+              name="dob"
+              type="date"
+              value={formData.dob}
               onChange={handleInputChange}
             />
           </div>

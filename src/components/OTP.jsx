@@ -81,6 +81,11 @@ const OTP = () => {
       {/* Centered Content */}
       <div className="flex flex-1 flex-col items-center justify-center px-6 pb-6">
         <div className="w-full max-w-sm">
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <img src="/logo.png" alt="Open World Accounts" className="h-24 w-auto" />
+          </div>
+
           {/* Title Section */}
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">

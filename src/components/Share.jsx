@@ -100,7 +100,9 @@ const Share = () => {
         >
           <span className="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
-        <h1 className="flex-1 text-center text-xl font-bold text-gray-900 dark:text-white">Share & Earn</h1>
+        <div className="flex-1 flex justify-center">
+          <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
+        </div>
         <div className="h-10 w-10"></div>
       </div>
 

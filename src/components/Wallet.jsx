@@ -19,21 +19,15 @@ const Wallet = () => {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
           </button>
-          <h1 className="text-3xl font-bold text-text-primary-dark">Wallets</h1>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigate('/receive')}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark"
-            >
-              <span className="material-symbols-outlined text-2xl">qr_code_scanner</span>
-            </button>
-            <button
-              onClick={() => navigate('/create-wallet')}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark"
-            >
-              <span className="material-symbols-outlined text-2xl">add</span>
-            </button>
+          <div className="flex-1 flex justify-center">
+            <img src="/logo.png" alt="Open World Accounts" className="h-10 w-auto" />
           </div>
+          <button
+            onClick={() => navigate('/receive')}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary-dark"
+          >
+            <span className="material-symbols-outlined text-2xl">qr_code_scanner</span>
+          </button>
         </header>
 
         {/* Main Content */}
